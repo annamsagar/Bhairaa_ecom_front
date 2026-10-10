@@ -71,11 +71,8 @@ const UpdateProduct = () => {
     console.log("images", image)
     console.log("productsdfsfsf", updateProduct)
     const updatedProduct = new FormData();
-    if (imageChanged && image) {
+    if (image) {
       updatedProduct.append("imageFile", image);
-    } else {
-      // Send null or empty value when no image is selected by user
-      updatedProduct.append("imageFile", null);
     }
     
     updatedProduct.append(

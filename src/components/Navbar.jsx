@@ -85,7 +85,7 @@ const handleLinkClick = () => {
     
     try {
       const response = await axios.get(
-        `${baseUrl}/api/products/search?keyword=${input}`
+        `${baseUrl}/api/product/search?keyword=${input}`
       );
       setSearchResults(response.data);
       
