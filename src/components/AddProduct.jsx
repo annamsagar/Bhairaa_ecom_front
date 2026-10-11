@@ -15,7 +15,7 @@ const AddProduct = () => {
     productAvailable: false,
   });
 
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_API_URL;
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
