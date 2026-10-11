@@ -4,7 +4,7 @@ import { Modal, Button, Form, Alert, Toast, ToastContainer } from 'react-bootstr
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPopup = ({ show, handleClose, cartItems, totalPrice }) => {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
