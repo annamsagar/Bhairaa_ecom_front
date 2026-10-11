@@ -1,4 +1,3 @@
-```jsx
 import axios from "../axios";
 import { useState, useEffect, createContext } from "react";
 
