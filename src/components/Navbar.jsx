@@ -134,8 +134,8 @@ const handleLinkClick = () => {
   return (
     <nav className="navbar navbar-expand-lg fixed-top bg-white shadow-sm" ref={navbarRef}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="https://telusko.com/">
-          Telusko
+        <a className="navbar-brand" href="https://www.youtube.com/@its_bhairaa" target="_blank" rel="noopener noreferrer">
+          Bhairaa
         </a>
         <button
   className="navbar-toggler"
