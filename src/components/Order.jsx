@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const Order = () => {
-  const baseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BASE_URL || "https://bhairaa-ecom-backend.onrender.com";
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,7 +56,7 @@ const Order = () => {
   };
 
   const calculateOrderTotal = (items) => {
-    return items.reduce((total, item) => total + item.totalPrice, 0);
+    return (items || []).reduce((total, item) => total + (item.totalPrice || 0), 0);
   };
 
   if (loading) {
@@ -124,7 +124,7 @@ const Order = () => {
                         <td>
                           <span className={`badge ${getStatusClass(order.status)}`}>{order.status}</span>
                         </td>
-                        <td>{order.items.length}</td>
+                        <td>{(order.items || []).length}</td>
                         <td className="fw-bold">{formatCurrency(calculateOrderTotal(order.items))}</td>
                         <td>
                           <button 
@@ -150,7 +150,7 @@ const Order = () => {
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {order.items.map((item, index) => (
+                                    {(order.items || []).map((item, index) => (
                                       <tr key={index}>
                                         <td>{item.productName}</td>
                                         <td className="text-center">{item.quantity}</td>

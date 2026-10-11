@@ -23,7 +23,7 @@ const [isNavCollapsed, setIsNavCollapsed] = useState(true);
 const navbarRef = useRef(null);
   
   const navigate = useNavigate();
-  const baseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BASE_URL || "https://bhairaa-ecom-backend.onrender.com";
 
   useEffect(() => {
     fetchInitialData();
@@ -85,7 +85,7 @@ const handleLinkClick = () => {
     
     try {
       const response = await axios.get(
-        `${baseUrl}/api/product/search?keyword=${input}`
+        `${baseUrl}/api/products/search?keyword=${input}`
       );
       setSearchResults(response.data);
       
@@ -134,8 +134,8 @@ const handleLinkClick = () => {
   return (
     <nav className="navbar navbar-expand-lg fixed-top bg-white shadow-sm" ref={navbarRef}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="https://www.youtube.com/@its_bhairaa" target="_blank" rel="noopener noreferrer">
-          Bhairaa
+        <a className="navbar-brand" href="https://telusko.com/">
+          Telusko
         </a>
         <button
   className="navbar-toggler"

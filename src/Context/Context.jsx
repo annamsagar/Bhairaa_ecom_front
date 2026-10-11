@@ -7,84 +7,65 @@ const AppContext = createContext({
   cart: [],
   addToCart: (product) => {},
   removeFromCart: (productId) => {},
-  refreshData: () => {},
-  updateStockQuantity: (productId, newQuantity) => {},
+  refreshData:() =>{},
+  updateStockQuantity: (productId, newQuantity) =>{}  
 });
 
 export const AppProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [isError, setIsError] = useState("");
-  const [cart, setCart] = useState(
-    JSON.parse(localStorage.getItem("cart")) || []
-  );
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+  const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BASE_URL || "https://bhairaa-ecom-backend.onrender.com";
 
   const addToCart = (product) => {
-    const existingProductIndex = cart.findIndex(
-      (item) => item.id === product.id
-    );
-
-    let updatedCart;
-
+    const existingProductIndex = cart.findIndex((item) => item.id === product.id);
     if (existingProductIndex !== -1) {
-      updatedCart = cart.map((item, index) =>
+      const updatedCart = cart.map((item, index) =>
         index === existingProductIndex
           ? { ...item, quantity: item.quantity + 1 }
           : item
       );
+      setCart(updatedCart);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
     } else {
-      const { imageData, ...productWithoutImage } = product;
-      updatedCart = [...cart, { ...productWithoutImage, quantity: 1 }];
+      const { imageData, ...productWithoutImage } = product; // ← only change
+      const updatedCart = [...cart, { ...productWithoutImage, quantity: 1 }];
+      setCart(updatedCart);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
     }
-
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   const removeFromCart = (productId) => {
+    console.log("productID",productId)
     const updatedCart = cart.filter((item) => item.id !== productId);
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    console.log("CART",cart)
   };
 
   const refreshData = async () => {
     try {
-      setIsError("");
-      const response = await axios.get("/products");
+      const response = await axios.get(`${baseUrl}/api/products`);
       setData(response.data);
     } catch (error) {
-      console.error("Failed to fetch products:", error);
-      setIsError(
-        error.response
-          ? `Request failed: ${error.response.status}`
-          : error.message
-      );
+      setIsError(error.message);
     }
   };
 
-  const clearCart = () => {
+  const clearCart =() =>{
     setCart([]);
-  };
-
+  }
+  
   useEffect(() => {
     refreshData();
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
-
+  
   return (
-    <AppContext.Provider
-      value={{
-        data,
-        isError,
-        cart,
-        addToCart,
-        removeFromCart,
-        refreshData,
-        clearCart,
-      }}
-    >
+    <AppContext.Provider value={{ data, isError, cart, addToCart, removeFromCart,refreshData, clearCart  }}>
       {children}
     </AppContext.Provider>
   );

@@ -11,7 +11,7 @@ const Cart = () => {
   const [cartImage, setCartImage] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const baseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BASE_URL || "https://bhairaa-ecom-backend.onrender.com";
 
   useEffect(() => {
     setCartItems(cart.length ? cart : []);

@@ -25,7 +25,7 @@ const UpdateProduct = () => {
     const [loading, setLoading] = useState(false);
   
 
-  const baseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BASE_URL || "https://bhairaa-ecom-backend.onrender.com";
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -71,8 +71,11 @@ const UpdateProduct = () => {
     console.log("images", image)
     console.log("productsdfsfsf", updateProduct)
     const updatedProduct = new FormData();
-    if (image) {
+    if (imageChanged && image) {
       updatedProduct.append("imageFile", image);
+    } else {
+      // Send null or empty value when no image is selected by user
+      updatedProduct.append("imageFile", null);
     }
     
     updatedProduct.append(
