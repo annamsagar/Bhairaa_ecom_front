@@ -23,7 +23,7 @@ const [isNavCollapsed, setIsNavCollapsed] = useState(true);
 const navbarRef = useRef(null);
   
   const navigate = useNavigate();
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetchInitialData();
